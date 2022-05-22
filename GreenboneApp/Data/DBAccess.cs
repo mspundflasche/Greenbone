@@ -10,11 +10,11 @@ namespace GreenboneApp.Data
 {
     public class DBAccess
     {
-        public void SaveDataInDatabase<T>(string _sql, T _parameters, string _connectionstring)
+        public int SaveDataInDatabase<T>(string _sql, T _parameters, string _connectionstring)
         {
             using (IDbConnection connection = new MySqlConnection(_connectionstring))
             {
-                connection.Execute(_sql, _parameters);
+                return connection.Execute(_sql, _parameters);
             }
         }
 

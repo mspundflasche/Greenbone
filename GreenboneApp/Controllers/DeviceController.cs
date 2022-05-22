@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using GreenboneApp.Models;
 using GreenboneApp.Data;
+using System.Net.Http;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -35,19 +36,24 @@ namespace GreenboneApp.Controllers
         {
             DBAccess dB = new DBAccess();
 
-            List<DeviceModel> deviceModel = dB.LoadDataFromDatabase<DeviceModel, dynamic>("SELECT * WHERE MACAddress=" + device.MACAddress + " FROM DeviceTable", new { }, ConnectionString);
+            List<DeviceModel> deviceModel = dB.LoadDataFromDatabase<DeviceModel, dynamic>
+                ("SELECT * WHERE MACAddress=" + device.MACAddress + " FROM DeviceTable", new { }, ConnectionString);
 
             if (deviceModel is null)
             {
-                string sql = "INSERT INTO DeviceTable VALUES (" + device.MACAddress + ", " + device.DeviceName + ", " + device.IPAddress + ", " + device.Abbrevation + "," + device.Description + ")";
-                dB.SaveDataInDatabase(sql, new { }, ConnectionString);
+                string sql = "INSERT INTO DeviceTable VALUES (" + device.MACAddress + ", " + 
+                    device.DeviceName + ", " + device.IPAddress + ", " + device.Abbrevation + "," + device.Description + ")";
+                int ret = dB.SaveDataInDatabase(sql, new { }, ConnectionString);
             }
         }
 
         // PUT api/<DeviceController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(string macAddress, [FromBody] DeviceModel device)
         {
+            DBAccess dB = new DBAccess();
+
+
         }
 
         // DELETE api/<DeviceController>/5
