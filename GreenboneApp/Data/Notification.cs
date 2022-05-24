@@ -15,7 +15,8 @@ namespace GreenboneApp.Data
             using( var client = new HttpClient())
             {
                 // Set new URI to the REST API
-                client.BaseAddress = new System.Uri("http://localhost:8080/");
+                // this port set when the notification docker image is startet 12345:8080
+                client.BaseAddress = new System.Uri("http://localhost:12345/");
                 // Tell the Server to accept json data format
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(
